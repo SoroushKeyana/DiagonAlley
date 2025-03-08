@@ -1,0 +1,13 @@
+{% load static %}
+
+
+    <form action="{% url 'add_new_post' %}" method="POST" id="new-post-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <img src="{{ profile.profile_picture.url }}" id="profile-picture">
+    </div>
+    <div>
+    {{ form }}
+    </div>
+    <input type="submit" value="Post" class="btn btn-md btn-primary ml-1">
+    </form>

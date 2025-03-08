@@ -1,5 +1,117 @@
 {% extends "network/layout.html" %}
+{% load static %}
 
 {% block body %}
-    TODO
+    {% if user.is_authenticated %}
+    <div class="p-3" id="create-post">
+    <form class="d-flex justify-content-start align-items-center">
+        <img src="{{ profile.profile_picture.url }}" id="profile-picture">
+        <input type="text" placeholder="What's on your mind?" class="border-0 bg-transparent shadow-none w-100 pl-3">
+    </form>
+    </div>
+    {% endif %}
+
+    <div id="create-post-popup">
+        {% include "network/add_new_post.html" %}
+    </div>
+
+    {% for post in page_obj %}
+    <div class="post d-flex p-3" id="post-{{ post.id }}">
+        <img src="{{ post.username.profile_picture.url }}" id="profile-picture">
+        <div class="px-3 text-light post-content">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5>
+                    <a href="{% url 'profile' post.username.username %}" class="profile-link">
+                    {{ post.username }}
+                    </a> 
+                    <span id="time-stamp">{{ post.time_stamp|timesince }}</span>
+                </h5>
+
+                {% if user.is_authenticated  and user == post.username %}
+                <div class="d-flex justify-content-center align-items-center">
+                    {% include "network/edit_post.html"%}
+                    <div class="delete-button ml-2" data-post-id="{{ post.id }}"><i class="fa-solid fa-trash"></i></div>
+                </div>
+                {% endif %}
+
+            </div>
+            <div class="post-content-container-{{ post.id }}">
+                <p id="content-{{ post.id }}">{{ post.content }}</p>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="Post image" class="post-image-{{ post.id }}">
+                {% endif %}
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="likes d-flex align-items-center mr-2">
+                    <span class="like-button pr-1" 
+                            data-post-id="{{ post.id }}"
+                            data-liked="{% if user in post.likes.all %}true{% else %}false{% endif %}">
+                        {% if user in post.likes.all %}
+                        <i class="fa-solid fa-heart colored-heart"></i>
+                        {% else %}
+                        <i class="fa-regular fa-heart"></i>
+                        {% endif %}
+                    </span> 
+                    <span id="like-count-{{ post.id }}">{{ post.likes.count }}</span>
+                </div>
+                <div class="d-flex align-items-center comment-button">
+                    <span class="comment-button pr-1" data-post-id="{{ post.id }}">
+                        <i class="fa-solid fa-message"></i>
+                    </span> 
+                    <span id="comment-count-{{ post.id }}">{{ post.comments.count }}</span>
+                </div>
+            </div>
+            <div class="comments" id="comments-{{ post.id }}">
+                <h4 class="border-bottom mt-3">Comments</h4>
+                {% for comment in post.comments_list %}
+                    <div class="comment mt-2 p-2 d-flex">
+                        <img src="{{comment.user.profile_picture.url}}" alt="Profile Picture" class="profile-picture picture-comment">
+                        <div class="bg-primary rounded ml-3 p-2">
+                            <h5 class="m-0 p-0">{{ comment.user.username|capfirst }}</h5> 
+                            <p class="m-0 p-0">{{ comment.content }}</p> 
+                            <p class="m-0 p-0">{{ comment.time_stamp|timesince }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+                {% if user.is_authenticated %}
+                <form method="POST" action="{% url 'comment' post.id %}" class="add-comment">
+                    {% csrf_token %}
+                    <textarea name="content" placeholder="Write a comment" class="w-100 form-control text-light"></textarea>
+                    <button type="submit" id="comment-button" class=" "><i class="fa-regular fa-circle-up"></i></button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+        <h4 class="text-light p-3">No posts to show.</h4>
+    {% endfor %}
+    
+    <div class="m-3">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+            {% endif %}
+
+            <li class="page-item disabled">
+                <a class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
+            </li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
 {% endblock %}
+

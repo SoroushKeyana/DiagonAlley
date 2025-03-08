@@ -1,0 +1,442 @@
+:root {
+    --background: #2E2E2E;
+    --surface: #2C2D35;
+    --primary-text: #FFFFFF;
+    --secondary-text: #A1A1A1;
+    --accent: #FFB74D;
+    --button-background: #FF7043;
+    --button-background-hover: #D84315;
+    --border: #4E4E4E;
+    --error: #F44336;
+    --link-text: #00B0FF;
+}
+
+/* General styles */
+*{
+    box-sizing: border-box;
+    padding: 0px; 
+    margin: 0px;
+}
+
+body {
+    background-color: var(--background);
+    background-image: url('images/diagon2.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1; 
+}
+
+.active{
+    background-color: var(--background);
+}
+
+.post-body{
+    border: 1px solid var(--border);
+    border-radius: 10px 10px 0px 0px;
+    background-color: var(--surface);
+    overflow: hidden;
+}
+
+.bg-dark{
+    background-color: var(--background) !important;
+}
+
+textarea:focus{
+    outline: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.btn-primary{
+    background-color: var(--button-background);
+    color: var(--primary-text);
+    padding: 9px 20px;
+    border: none;
+}
+
+.bg-primary{
+    background-color: var(--link-text);
+}
+
+.btn-primary:hover{
+    background-color: var(--button-background-hover);
+}
+
+.text-light{
+    color: var(--primary-text);
+}
+
+hr{
+    background-color: var(--secondary-text);
+}
+
+/* Navbar styles */
+.logo{
+    width: 100px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    z-index: 1000;
+    padding: 20px; 
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+nav a{
+    color: var(--primary-text);
+    text-decoration: none;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+nav a:hover{
+    background-color: rgba(0,0,0,0);
+    color: white;
+}
+
+.nav-item{
+    font-size: 35px;
+    width: 70px;
+    height: 70px;
+    margin-left: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, padding 0.3s ease;
+    cursor: pointer;
+}
+
+.nav-item:hover{
+    background-color: var(--surface);
+    padding: 10px;
+}
+
+/* Posts styles */
+.post{
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+}
+
+.post-content{
+    width: 90%;
+}
+
+.post-content img{
+    width: 100%;
+    height: auto;
+}
+
+.edit:hover{
+    color: var(--accent);
+}
+
+.delete-button:hover{
+    color: var(--button-background-hover);
+}
+
+#new-post-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#create-post{
+    border: 1px solid var(--border);
+    border-radius: 10px 10px 0px 0px;
+    background-color: var(--surface);
+}
+
+#create-post textarea, #create-post-popup textarea{
+    width: 33vw;
+    background-color: rgba(0,0,0,0);
+    color: var(--primary-text);
+    border: none;
+    outline: none;
+    resize: none;
+}
+
+#create-post textarea:focus, #create-post-popup textarea:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.profile{
+    background-color: var(--surface);
+    border-radius: 10px 10px 0px 0px;
+}
+
+.profile-link{
+    color: var(--link-text)
+}
+
+#profile-picture{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--border);
+}
+
+#time-stamp{
+    color: var(--secondary-text);
+    font-size: 1rem;
+}
+
+#create-post-popup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 1000;
+    display: none;
+}
+
+#create-post-popup form{
+    width: 30%;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background-color: var(--surface);
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+#create-post-popup textarea{
+    min-height: 200px;
+    width: 20vw;
+}
+
+#create-post-popup input[type="submit"]{
+    align-self: flex-end;
+}
+
+/* Profile page styles */
+
+.profile-picture{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    border: 1px solid var(--border);
+}
+
+.follow-profile-picture{
+    width: 60px !important;
+    height: 60px !important;
+}
+
+#upload-picture{
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 1000;
+    display: none;
+}
+
+#profile-picture-upload-button{
+    cursor: pointer;
+}
+
+#profile-picture-upload-button:hover{
+    opacity: 0.5;
+}
+
+.upload-picture-container{
+    background-color: var(--surface);
+    padding: 100px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-text) !important;
+}
+
+/* Like button styles */
+.like-button{
+    color: var(--primary-text);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-size: larger;
+}
+
+.like-button:hover{
+    color: var(--button-background-hover);
+}
+
+.colored-heart{
+    color: var(--button-background-hover) !important;
+}
+
+#following, #followers{
+    display: none;
+}
+
+/* add-comment styles */
+
+.add-comment{
+    position: relative;
+}
+
+.add-comment textarea{
+    background-color: rgba(60, 61, 66, 0.7);
+    border: 1px solid var(--border);
+    margin-top: 10px;
+    resize: none;
+}
+
+.add-comment textarea:focus{
+    background-color: rgba(60, 61, 66, 0.7);
+    border: 1px solid var(--border) !important;
+    outline: 1px solid var(--link-text) !important;
+}
+
+.add-comment textarea::placeholder{
+    color: var(--primary-text);
+}
+
+.add-comment textarea::-webkit-scrollbar {
+    width: 5px;
+}
+
+.add-comment textarea::-webkit-scrollbar-thumb {
+    background: var(--secondary-text);
+    border-radius: 3px;
+    cursor: default;
+
+}
+
+.add-comment textarea::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#comment-button{
+    color: var(--primary-text);
+    font-size: 1.5rem;
+    position: absolute !important;
+    right: 10px;
+    bottom: 5px;
+    transition: color 0.3s ease, padding 0.3s ease;
+    background-color: transparent !important;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+#comment-button:hover{
+    color: var(--link-text);
+}
+
+.comment-button{
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.picture-comment{
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.comments{
+    display: none;
+}
+
+abbr {
+    position: relative;
+    cursor: pointer;
+}
+
+abbr::after {
+    content: attr(data-title);
+    position: absolute;
+    bottom: 20%;
+    left: 170%;
+    transform: translateX(-50%);
+    background-color: var(--background);
+    color: var(--primary-text);
+    padding: 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s;
+}  
+
+
+/* Mobile responsive styles */
+@media only screen and (min-width: 992px) {
+    abbr:hover::after {
+            opacity: 1;
+        }
+}
+
+@media only screen and (max-width: 992px) {
+  nav {
+    flex-direction: row !important;
+    width: 100% !important;
+    height: auto;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    position: fixed;
+    background-color: var(--surface);
+    padding: 100px 100px !important;
+    justify-content: center;
+    align-items: center;
+  }
+
+  nav ul {
+    width: 100%;
+    flex-direction: row !important;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+
+  .navbar-brand img{
+    width: 60px;
+    height: 50px !important;
+    padding-left: 20px;
+  }
+ 
+}

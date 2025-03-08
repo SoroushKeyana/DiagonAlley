@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>{% block title %}Social Network{% endblock %}</title>
+        <title>{% block title %}Diagon Alley{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'network/styles.css' %}" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -23,43 +23,67 @@
                 <div>
                 <ul class="navbar-nav mr-auto">
                     {% if user.is_authenticated %}
-                    <abbr data-title="{{ user.username|capfirst }}">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'profile' user.username %}"><i class="fa-solid fa-user"></i></a>
-                        </li>
-                    </abbr>
+                    <a class="nav-link" href="{% url 'profile' user.username %}">
+                        <abbr data-title="{{ user.username|capfirst }}">
+                            <li class="nav-item">
+                                <i class="fa-solid fa-user"></i>
+                            </li>
+                        </abbr>
+                    </a>
                     {% endif %}
-                    <abbr data-title="All Posts">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'index' %}"><i class="fa-solid fa-house"></i></a>
-                        </li>
-                    </abbr>
+                    <a class="nav-link" href="{% url 'search' %}">
+                        <abbr data-title="Search">
+                            <li class="nav-item">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </li>
+                        </abbr>
+                    </a>
+                    
+                    <a class="nav-link" href="{% url 'index' %}">
+                        <abbr data-title="All Posts">
+                            <li class="nav-item">
+                                <i class="fa-solid fa-house"></i>
+                            </li>
+                        </abbr>
+                    </a>
+
                     {% if user.is_authenticated %}
-                    <abbr data-title="Following">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'following' %}"><i class="fa-solid fa-heart"></i></a>
-                        </li>
-                    </abbr>
-                    <abbr data-title="Logout">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i></a>
-                        </li>
-                    </abbr>
+                    <a class="nav-link" href="{% url 'following' %}">
+                        <abbr data-title="Following">
+                            <li class="nav-item">
+                                <i class="fa-solid fa-heart"></i>
+                            </li>
+                        </abbr>
+                    </a>
+
+                    <a class="nav-link" href="{% url 'logout' %}">
+                        <abbr data-title="Logout">
+                            <li class="nav-item">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </li>
+                        </abbr>
+                    </a>
+
                     {% else %}
-                    <abbr data-title="Login">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}"><i class="fa-solid fa-right-to-bracket"></i></a>
-                        </li>
-                    </abbr>
-                    <abbr data-title="Register">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}"><i class="fa-solid fa-user-plus"></i></a>
-                        </li>
-                    </abbr>
+                    <a class="nav-link" href="{% url 'login' %}">
+                        <abbr data-title="Login">
+                            <li class="nav-item">
+                                <i class="fa-solid fa-right-to-bracket"></i>
+                            </li>
+                        </abbr>
+                    </a>
+
+                    <a class="nav-link" href="{% url 'register' %}">
+                        <abbr data-title="Register">
+                            <li class="nav-item">
+                                <i class="fa-solid fa-user-plus"></i>
+                            </li>
+                        </abbr>
+                    </a>
                     {% endif %}
                 </ul>
                 </div>
-                <div></div>
+                <div class="empty"></div>
             </nav>
             <div class="post-body col-lg-5 p-0 m-0 mt-lg-4">
             {% block body %}

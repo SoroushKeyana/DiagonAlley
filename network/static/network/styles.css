@@ -84,6 +84,19 @@ hr{
     background-color: var(--secondary-text);
 }
 
+.empty{
+    height: 170px;
+}
+
+a{
+    color: var(--link-text);
+}
+
+a:hover {
+    text-decoration: underline 1px solid var(--link-text);
+    color: var(--link-text);
+}
+
 /* Navbar styles */
 .logo{
     width: 100px;
@@ -114,7 +127,6 @@ nav ul {
 nav a{
     color: var(--primary-text);
     text-decoration: none;
-    margin-bottom: 10px;
     text-decoration: none;
 }
 
@@ -246,11 +258,10 @@ nav a:hover{
 }
 
 /* Profile page styles */
-
 .profile-picture{
     border-radius: 50%;
-    width: 150px;
-    height: 150px;
+    width: 150px !important;
+    height: 150px !important;
     border: 1px solid var(--border);
 }
 
@@ -311,7 +322,6 @@ nav a:hover{
 }
 
 /* add-comment styles */
-
 .add-comment{
     position: relative;
 }
@@ -379,6 +389,7 @@ nav a:hover{
     display: none;
 }
 
+/* abbr style */
 abbr {
     position: relative;
     cursor: pointer;
@@ -387,9 +398,6 @@ abbr {
 abbr::after {
     content: attr(data-title);
     position: absolute;
-    bottom: 20%;
-    left: 170%;
-    transform: translateX(-50%);
     background-color: var(--background);
     color: var(--primary-text);
     padding: 10px;
@@ -398,18 +406,32 @@ abbr::after {
     z-index: 10;
     opacity: 0;
     transition: opacity 0.3s;
-}  
+    left: 100px; 
+    top: 0;
+    transform: translateY(10px);
+} 
 
+abbr:hover::after {
+    opacity: 1;
+}
 
 /* Mobile responsive styles */
-@media only screen and (min-width: 992px) {
-    abbr:hover::after {
-            opacity: 1;
-        }
+@media only screen and (max-width: 1500px) {
+    #new-post-form{
+        width: 40% !important;
+    }
 }
 
 @media only screen and (max-width: 992px) {
-  nav {
+    abbr:hover::after {
+    opacity: 1;
+    }
+
+    abbr::after{
+    display: none;
+    }
+
+    nav {
     flex-direction: row !important;
     width: 100% !important;
     height: auto;
@@ -421,22 +443,47 @@ abbr::after {
     padding: 100px 100px !important;
     justify-content: center;
     align-items: center;
-  }
+    }
 
-  nav ul {
+    nav ul {
     width: 100%;
     flex-direction: row !important;
-    justify-content: space-around;
+    justify-content: center !important;
     align-items: center;
     padding-top: 10px;
     padding-bottom: 10px;
-  }
+    }
 
+    .navbar-brand img{
+    display: none;
+    }
 
-  .navbar-brand img{
-    width: 60px;
-    height: 50px !important;
-    padding-left: 20px;
+    .nav-item{
+    font-size: 25px;
+    margin: 0px;
+    padding: 0px;
+    }
+
+    .profile-picture{
+    width: 80px !important;
+    height: 80px !important;
+    }
+
+    #new-post-form{
+    width: 70% !important;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .profile-detail{
+        flex-direction: column !important;
+    }
+    
+    .profile-username{
+        font-size: 25px;
+    }
+
+    #new-post-form{
+    width: 100% !important;
   }
- 
 }

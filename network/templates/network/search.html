@@ -1,0 +1,26 @@
+{% extends "network/layout.html" %}
+{% load static %}
+{% block title %}Diagon Alley | Search{% endblock %}
+
+{% block body %}
+    <form method="GET" action="{% url 'search' %}" class="m-5 border rounded border-secondary text-light">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control bg-dark text-light border-0 shadow-none" placeholder="Search users..." value="{{ search_query }}">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-outline-secondary border-dark"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+    </form>
+
+    <div class="m-5">
+    {% for user in users %}
+    <a href="{% url 'profile' user.username %}" class="profile-link d-flex align-items-center p-3 w-100 bg-outline-dark">
+        <img src="{{ user.profile_picture.url }}" class="profile-picture follow-profile-picture mr-2">
+        <h4 class="text-light">{{user.username|capfirst}}</h4>
+    </a>
+    <hr class="m-1">
+    {% empty %}
+        <p class="text-light m-3">No users found</p>
+    {% endfor %}
+    </div>
+{% endblock %}

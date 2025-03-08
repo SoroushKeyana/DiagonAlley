@@ -1,4 +1,8 @@
-{% extends "network/layout.html" %} {% load static %} {% block body %}
+{% extends "network/layout.html" %} 
+{% load static %} 
+{% block title %}Diagon Alley | Following{% endblock %}
+
+{% block body %}
 <div
 	class="d-flex justify-content-between align-items-center p-3 profile text-light display-5"
 >
@@ -8,7 +12,9 @@
 <div id="profile-posts">
 	{% for post in page_obj %}
 	<div class="post d-flex p-3" id="post-{{ post.id }}">
-		<img src="{{ post.username.profile_picture.url }}" id="profile-picture" />
+		<a href="{% url 'profile' post.username.username %}" class="profile-link h-25">
+            <img src="{{ post.username.profile_picture.url }}" id="profile-picture">
+        </a>
 		<div class="px-3 text-light post-content">
 			<div class="d-flex justify-content-between align-items-center">
 				<h5>

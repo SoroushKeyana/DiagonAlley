@@ -1,14 +1,15 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 import json
-
 from .models import User, Post, Follow, Comment
 from .forms import NewPost, ProfilePicture
+
 
 def index(request):
     posts = Post.objects.all().order_by('-time_stamp')
@@ -33,11 +34,18 @@ def profile(request, username):
     paginator = Paginator(posts, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    is_following = request.user.is_authenticated and profile.followers.filter(follower__username__iexact=request.user.username).exists()
-    is_own_profile = request.user.username == username
+
+    if request.user.is_authenticated:
+        is_following = profile.followers.filter(follower__username__iexact=request.user.username).exists()
+        is_own_profile = request.user.username == username
+        form = ProfilePicture(instance=request.user)
+    else:
+        is_following = False
+        is_own_profile = False
+        form = None
+
     followers = profile.followers.all()
     following = profile.following.all()
-    form = ProfilePicture(instance=request.user)
 
     if request.method == "POST" and request.user.is_authenticated:
         current_user = request.user
@@ -46,7 +54,7 @@ def profile(request, username):
             action = request.POST['follow']
 
             if action == "follow":
-                if not Follow.objects.filter(follower=current_user, following=profile):
+                if not Follow.objects.filter(follower=current_user, following=profile).exists():
                     Follow.objects.create(follower=current_user, following=profile)
                 is_following = True
 
@@ -54,16 +62,14 @@ def profile(request, username):
                 Follow.objects.filter(follower=current_user, following=profile).delete()
                 is_following = False
 
-
         elif 'profile_picture' in request.FILES:
             form = ProfilePicture(request.POST, request.FILES, instance=request.user)
             if form.is_valid():
                 form.save()
                 return HttpResponseRedirect(reverse("profile", args=[username]))
-        
+
     for post in page_obj:
         post.comments_list = post.comments.all()
-
 
     return render(request, "network/profile_page.html", {
         "profile": profile,
@@ -74,6 +80,19 @@ def profile(request, username):
         "following": following,
         "followers": followers
     })
+
+
+def search(request):
+    search_query = request.GET.get('search', '')
+
+    if search_query:
+        users = User.objects.filter(
+            Q(username__icontains=search_query)
+        )
+    else:
+        users = User.objects.all()
+    return render(request, "network/search.html", {"users": users})
+
 
 @login_required
 def following(request):
@@ -109,6 +128,7 @@ def add_new_post(request):
     return render(request, "network/add_new_post.html", {
         "form": form
     })
+
 
 @login_required
 def delete_post(request, post_id):
@@ -159,7 +179,7 @@ def comment(request, post_id):
             "message": "Comment added successfully", 
             "content": comment.content, 
             "user": request.user.username,
-            "profile_picture": request.user.profile_picture.url if request.user.profile_picture else "/static/default_profile.png",
+            "profile_picture": request.user.profile_picture.url if request.user.profile_picture else "/media/profile_pics/default_profile.png",
             "time_stamp": comment.time_stamp.strftime("%Y-%m-%d %H:%M"),
             "post_id": post_id
         })  

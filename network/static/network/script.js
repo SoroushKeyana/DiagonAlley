@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+
     likeButton.forEach(button => {
         button.addEventListener("click", function () {
             const postId = this.getAttribute("data-post-id");
@@ -217,27 +218,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (profileFollowingButton) {
-    profileFollowingButton.addEventListener("click", function() {
-        followers.style.display="none"
-        following.style.display="block"
-        profilePosts.style.display="none"
-    })
+        profileFollowingButton.addEventListener("click", function() {
+            followers.style.display="none"
+            following.style.display="block"
+            profilePosts.style.display="none"
+        })
     }
 
     if (profileFollowersButton) {
-    profileFollowersButton.addEventListener("click", function() {
-        followers.style.display="block"
-        following.style.display="none"
-        profilePosts.style.display="none"
-    })
+        profileFollowersButton.addEventListener("click", function() {
+            followers.style.display="block"
+            following.style.display="none"
+            profilePosts.style.display="none"
+        })
     }
 
     if (profilePostsButton) {
-    profilePostsButton.addEventListener("click", function() {
-        followers.style.display="none"
-        following.style.display="none"
-        profilePosts.style.display="block"
-    })
+        profilePostsButton.addEventListener("click", function() {
+            followers.style.display="none"
+            following.style.display="none"
+            profilePosts.style.display="block"
+        })
     }
     
     profile_buttons.forEach(button => {

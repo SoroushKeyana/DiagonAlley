@@ -8,7 +8,7 @@
         <img src="{{ profile.profile_picture.url }}" class="profile-picture" id="profile-picture-upload-button">
 
         <div class="d-flex flex-column w-100 justify-content-around ml-4">
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center username-follow">
                 <h3 class="text-light mr-2 profile-username">{{ profile.username|capfirst }}</h3>
 
                 {% if not is_own_profile and user.is_authenticated%}
@@ -35,24 +35,30 @@
             </div>
         
             <div class="text-light d-flex profile-detail">
-                {% if page_obj.paginator.count == 1 %}
-                <h5 class="mr-4">{{ page_obj.paginator.count }} post</h5>
-                {% else%}
-                <h5 class="mr-4">{{ page_obj.paginator.count }} posts</h5>
-                {% endif %}
+                <div>
+                    {% if page_obj.paginator.count == 1 %}
+                    <h5 class="mr-4">{{ page_obj.paginator.count }} post</h5>
+                    {% else%}
+                    <h5 class="mr-4">{{ page_obj.paginator.count }} posts</h5>
+                    {% endif %}
+                </div>
 
-                <h5 class="mr-4">{{ following.count }} following</h5>
+                <div>
+                    <h5 class="mr-4">{{ following.count }} following</h5>
+                </div>
 
-                {% if followers.count == 1 %}
-                <h5 class="mr-4">{{ followers.count }} follower</h5>
-                {% else%}
-                <h5 class="mr-4">{{ followers.count }} followers</h5>
-                {% endif %}
+                <div>
+                    {% if followers.count == 1 %}
+                    <h5 class="mr-4">{{ followers.count }} follower</h5>
+                    {% else%}
+                    <h5 class="mr-4">{{ followers.count }} followers</h5>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="btn-group btn-group-lg d-flex justify-content-center mx-1" role="group">
+    <div class="btn-group btn-group-lg btn-group-responsive d-flex justify-content-center mx-1" role="group">
         <button class="btn btn-outline-secondary border text-light tab-button active" id="profile-posts-button">Posts</button>
         <button class="btn btn-outline-secondary border text-light tab-button" id="profile-following-button">Following</button>
         <button class="btn btn-outline-secondary border text-light tab-button" id="profile-followers-button">Followers</button>

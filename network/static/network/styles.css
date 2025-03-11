@@ -469,14 +469,53 @@ abbr:hover::after {
     height: 80px !important;
     }
 
+    .picture-comment{
+    width: 40px !important;
+    height: 40px !important;
+    }
+
+    .comment h5{
+        font-size: 1rem !important;
+    }
+
+    .comment p{
+        font-size: 0.9rem !important;
+    }
+
     #new-post-form{
     width: 70% !important;
     }
 }
 
+
+@media only screen and (max-width: 576px) {
+  .btn-group-responsive .btn {
+    font-size: 0.7rem !important;
+    padding: 6px 5px !important;
+  }
+}
+
+
+@media only screen and (max-width: 500px) {
+    .username-follow{
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        margin-bottom: 10px;
+    }
+}
+
+
 @media only screen and (max-width: 450px) {
     .profile-detail{
-        flex-direction: column !important;
+        margin-left: -100px;
+        margin-top: 10px;
+        justify-content: center;
+        align-items: center;
+        font-weight: 100 !important;
+    }
+
+    .profile-detail h5{
+        font-size: 1rem;
     }
     
     .profile-username{

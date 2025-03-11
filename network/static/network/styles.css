@@ -182,6 +182,10 @@ nav a:hover{
     align-items: center;
 }
 
+#new-post-form textarea {
+    width: 100% !important;
+}
+
 #create-post{
     border: 1px solid var(--border);
     border-radius: 10px 10px 0px 0px;
@@ -501,6 +505,11 @@ abbr:hover::after {
         flex-direction: column !important;
         align-items: flex-start !important;
         margin-bottom: 10px;
+    }
+
+    #time-stamp{
+        display: block;
+        font-size: small;
     }
 }
 

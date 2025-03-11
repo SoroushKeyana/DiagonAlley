@@ -434,15 +434,15 @@ abbr:hover::after {
     nav {
     flex-direction: row !important;
     width: 100% !important;
-    height: auto;
+    height: 60px !important;
     bottom: 0;
     top: auto;
     left: 0;
     position: fixed;
     background-color: var(--surface);
-    padding: 100px 100px !important;
     justify-content: center;
     align-items: center;
+    border-top: 1px solid var(--secondary-text);
     }
 
     nav ul {
@@ -460,8 +460,8 @@ abbr:hover::after {
 
     .nav-item{
     font-size: 25px;
-    margin: 0px;
-    padding: 0px;
+    margin: 0px !important;
+    padding: 0px !important;
     }
 
     .profile-picture{
